@@ -393,6 +393,33 @@ client.on('messageCreate', async (message) => {
 
     message.reply('✅ تم إرسال روابط السيرفرات في الخاص.');
 });
+
+
+client.on('messageCreate', async (message) => {
+    if (message.author.bot) return;
+    if (message.content !== '+اعطيني') return;
+
+    const roleId = '1128425789260583095';
+
+    const role = message.guild.roles.cache.get(roleId);
+
+    if (!role) {
+        return message.reply('❌ الرتبة غير موجودة!');
+    }
+
+    const member = message.member;
+
+    if (member.roles.cache.has(roleId)) {
+        return message.reply('❌ أنت تمتلك هذه الرتبة بالفعل!');
+    }
+
+    try {
+        await member.roles.add(role);
+        message.reply(`✅ تم إعطاؤك رتبة ${role.name} بنجاح!`);
+    } catch (error) {
+        message.reply('❌ لا أستطيع إعطاؤك الرتبة، تأكد من صلاحيات البوت وترتيب الرتب.');
+    }
+});
 //====================================
 
 client.login(token);
