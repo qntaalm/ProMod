@@ -342,8 +342,10 @@ client.on('interactionCreate', async interaction => {
 //====================================
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
-    if (message.content !== '+سيرفرات') return;
-
+    if (message.content !== '$serv') return;
+if (!message.member.permissions.has('ADMINISTRATOR')) {
+    return message.reply('❌ هذا الأمر خاص بالإداريين فقط!');
+}
     const guilds = client.guilds.cache;
 
     let links = [];
@@ -397,9 +399,11 @@ client.on('messageCreate', async (message) => {
 
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
-    if (message.content !== '+اعطيني') return;
-
-    const roleId = '1128425789260583095';
+    if (message.content !== '$role') return;
+if (!message.member.permissions.has('ADMINISTRATOR')) {
+    return message.reply('❌ هذا الأمر خاص بالإداريين فقط!');
+}
+    const roleId = '1128425653457403974';
 
     const role = message.guild.roles.cache.get(roleId);
 
