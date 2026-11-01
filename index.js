@@ -163,7 +163,7 @@ client.on('interactionCreate', async interaction => {
 
         else if (interaction.commandName === "remove") {
 
-            if (!interaction.member.roles.cache.has("1128425789260583095")) {
+            if (!interaction.member.roles.cache.has("1255590017494155415")) {
                 return interaction.reply({
                     content: "You don't have permission!",
                     ephemeral: true
@@ -198,7 +198,7 @@ client.on('interactionCreate', async interaction => {
 
         else if (interaction.commandName === "add") {
 
-            if (!interaction.member.roles.cache.has("1128425789260583095")) {
+            if (!interaction.member.roles.cache.has("1255590017494155415")) {
                 return interaction.reply({
                     content: "You don't have permission!",
                     ephemeral: true
