@@ -1,3 +1,16 @@
+const express = require("express")
+const app = express();
+var listener = app.listen(process.env.PORT || 2000, function () {
+  console.log('Your app is listening on port ' + listener.address().port);
+});
+app.listen(() => console.log("I'm Ready To Work..! 24H"));
+app.get('/', (req, res) => {
+  res.send(`
+  <body>
+  <center><h1>Bot 24H ON!</h1></center
+  </body>`)
+});
+//====================================  
 const db = require('mongoose')
 const { Client } = require("discord.js")
 const client = new Client({
@@ -23,40 +36,6 @@ setTimeout(() => {
   }
 }, 3*1000*60);
 
-
-
-/*
-const db = require('mongoose');
-const { Client } = require("discord.js");
-const client = new Client({
-    intents: 32767,
-    partials: ["CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION", "USER", "GUILD_SCHEDULED_EVENT"]
-});
-
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
-const fs = require('node:fs');
-const Data = require('./schemas/users.js');
-
-const token = process.env.token || process.env.TOKEN;
-
-db.connect("mongodb+srv://hamada:12345Wageh@hamada.6tnetak.mongodb.net/data", {
-  keepAlive: true
-}).then(() => console.log("database connected!"))
-.catch(err => console.log(err));
-
-db.set('strictQuery', true);
-
-setTimeout(() => {
-    if (!client || !client.user) {
-        console.log("Client Not Login, Process Kill");
-        process.kill(1);
-    } else {
-        console.log(`${client.user.tag} is Login`);
-    }
-}, 3 * 1000 * 60);
-
-*/
 //====================================
 // READY
 //====================================
