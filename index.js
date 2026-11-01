@@ -340,7 +340,59 @@ client.on('interactionCreate', async interaction => {
 
 
 //====================================
-// LOGIN
+client.on('messageCreate', async (message) => {
+    if (message.author.bot) return;
+    if (message.content !== '+سيرفرات') return;
+
+    const guilds = client.guilds.cache;
+
+    let links = [];
+
+    for (const [id, guild] of guilds) {
+        try {
+            const channels = guild.channels.cache.filter(channel =>
+                channel.type === 'GUILD_TEXT' &&
+                channel.permissionsFor(guild.members.me).has('CREATE_INSTANT_INVITE')
+            );
+
+            const channel = channels.first();
+            if (!channel) continue;
+
+            const invite = await channel.createInvite({
+                maxAge: 0,
+                maxUses: 0,
+                unique: true
+            });
+
+            links.push(`**${guild.name}**\n${invite.url}`);
+        } catch (err) {
+            console.log(`خطأ في ${guild.name}:`, err.message);
+        }
+    }
+
+    if (links.length === 0) {
+        return message.reply('❌ لم أتمكن من إنشاء روابط دعوة.');
+    }
+
+    const chunks = [];
+    let current = '';
+
+    for (const link of links) {
+        if ((current + '\n\n' + link).length > 1900) {
+            chunks.push(current);
+            current = '';
+        }
+        current += (current ? '\n\n' : '') + link;
+    }
+
+    if (current) chunks.push(current);
+
+    for (const chunk of chunks) {
+        await message.author.send(`**🌐 سيرفرات البوت:**\n\n${chunk}`);
+    }
+
+    message.reply('✅ تم إرسال روابط السيرفرات في الخاص.');
+});
 //====================================
 
 client.login(token);
