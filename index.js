@@ -9,7 +9,7 @@ const { Routes } = require('discord-api-types/v9');
 const fs = require('node:fs');
 const Data = require('./schemas/users.js')
 
-const token = process.env.token || process.env.TOKEN;
+const token = process.env.token
 db.connect("mongodb+srv://hamada:12345Wageh@hamada.6tnetak.mongodb.net/data", {
   keepAlive: true
 }).then(() => console.log("database connected!")).catch(err => console.log(err))
